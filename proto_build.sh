@@ -44,7 +44,7 @@ fi
 ###################################################
 
 # Start process
-echo "Compiling..."
+echo -e "\033[1;32mCompiling...\033[0m"
 protostar build > build.tmp
 if [ $? -ne 0 ]
 then
@@ -60,7 +60,7 @@ CLASS_HASH=`cat build.tmp | grep ${FILENAME} | awk 'FNR == 1 {print $6}'`
 #                                                 #
 ###################################################
 
-echo "Declaring..."
+echo -e "\033[1;32mDeclaring...\033[0m"
 DECLARE_STATEMENT="protostar declare ${3} ${ENVIRONMENT1} --account-address ${PUBLIC_KEY} --max-fee auto > build.tmp"
 echo ${DECLARE_STATEMENT}
 eval ${DECLARE_STATEMENT}
@@ -103,7 +103,7 @@ fi
 #                                                 #
 ###################################################
 
-echo "Deploying..."
+echo -e "\033[1;32mDeploying...\033[0m"
 DEPLOY_STATEMENT="protostar deploy ${CLASS_HASH} ${ENVIRONMENT1} --max-fee auto --account-address ${PUBLIC_KEY} ${INPUTS} > build.tmp"
 echo ${DEPLOY_STATEMENT}
 eval ${DEPLOY_STATEMENT}
