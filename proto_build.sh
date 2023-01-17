@@ -52,8 +52,8 @@ then
    exit
 fi
 
-CLASS_HASH=`cat build.tmp | awk 'FNR == 2 {print $6}'`
-
+FILENAME=`basename $3 .json`
+CLASS_HASH=`cat build.tmp | grep ${FILENAME} | awk 'FNR == 1 {print $6}'`
 ###################################################
 #                                                 #
 # Declare                                         #
@@ -62,6 +62,7 @@ CLASS_HASH=`cat build.tmp | awk 'FNR == 2 {print $6}'`
 
 echo "Declaring..."
 DECLARE_STATEMENT="protostar declare ${3} ${ENVIRONMENT1} --account-address ${PUBLIC_KEY} --max-fee auto > build.tmp"
+echo ${DECLARE_STATEMENT}
 eval ${DECLARE_STATEMENT}
 if [ $? -ne 0 ]
 then
@@ -77,6 +78,7 @@ else
 fi
 TX_STATUS=`starknet tx_status ${ENVIRONMENT2} --hash ${TX_HASH} | awk 'FNR == 2 {print $2}'`
 
+echo "Class Hash:" ${CLASS_HASH}
 echo "Tx.Hash:" ${TX_HASH}
 
 start=$SECONDS
@@ -103,6 +105,7 @@ fi
 
 echo "Deploying..."
 DEPLOY_STATEMENT="protostar deploy ${CLASS_HASH} ${ENVIRONMENT1} --max-fee auto --account-address ${PUBLIC_KEY} ${INPUTS} > build.tmp"
+echo ${DEPLOY_STATEMENT}
 eval ${DEPLOY_STATEMENT}
 if [ $? -ne 0 ]
 then
