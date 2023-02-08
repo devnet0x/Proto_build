@@ -12,7 +12,7 @@ proto_build.sh <environment> <key_file> <json_compiled_file> [constructor parame
 ```
 Where:
 
-environment            : devnet or testnet
+environment            : devnet or testnet or testnet2
 
 key_file               : File with public key in first line and private key in second line.
 
