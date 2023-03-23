@@ -133,9 +133,10 @@ else
 fi
 
 # Hash from dec to hex
-TX_HASH="echo 'obase=16;${TX_HASH}' | bc > build.tmp"
-eval ${TX_HASH}
-TX_HASH=`cat build.tmp | awk 'FNR == 1 {print $1}'`
+#TX_HASH="echo 'obase=16;${TX_HASH}' | bc > build.tmp"
+#eval ${TX_HASH}
+#TX_HASH=`cat build.tmp | awk 'FNR == 1 {print $1}'`
+
 TX_STATUS=`starknet tx_status ${ENVIRONMENT2} --hash ${TX_HASH} | awk 'FNR == 2 {print $2}'`
 
 echo "Tx.Hash: 0x"${TX_HASH}
